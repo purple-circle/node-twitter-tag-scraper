@@ -13,7 +13,7 @@ describe('Parse html', function() {
 
   it('Should return property twitter:hello', function() {
     var tags = twitterTags.parseHtml('<meta name="twitter:hello" content="world">');
-    tags.should.have.property("twitter:hello");
+    tags.should.have.property("hello");
   });
 
 });

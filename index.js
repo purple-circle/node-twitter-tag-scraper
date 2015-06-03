@@ -17,7 +17,8 @@ TwitterTags.parseHtml = function(html) {
   });
 
   metaTags.each(function(i, element) {
-    result[element.attribs.name] = element.attribs.content;
+    var attrs = element.attribs;
+    result[attrs.name.replace("twitter:", "")] = attrs.content;
   });
 
   return result;

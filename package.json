@@ -1,6 +1,6 @@
 {
   "name": "twitter-tag-scraper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Scraping Twitter card meta tags from given url",
   "main": "index.js",
   "repository": {
