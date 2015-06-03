@@ -18,16 +18,16 @@ describe('Stackoverflow example', function() {
     tags.should.eventually.not.have.property("this_should_not_be_valid").notify(done);
   });
 
-  it('Should have twitter:domain property', function (done) {
+  it('Should have domain property', function (done) {
     var tags = twitterTags.fetch("http://localhost:3000/stackoverflow.html");
     tags.should.eventually.have.property("domain").notify(done);
   });
 
-  it('Should have twitter:title property', function (done) {
+  it('Should have title property', function (done) {
     var tags = twitterTags.fetch("http://localhost:3000/stackoverflow.html");
     tags.should.eventually.have.property("title").notify(done);
   });
-  it('Should have twitter:description property', function (done) {
+  it('Should have description property', function (done) {
     var tags = twitterTags.fetch("http://localhost:3000/stackoverflow.html");
     tags.should.eventually.have.property("description").notify(done);
   });

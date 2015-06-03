@@ -11,7 +11,7 @@ describe('Parse html', function() {
     return tags.should.be.empty;
   });
 
-  it('Should return property twitter:hello', function() {
+  it('Should return property hello', function() {
     var tags = twitterTags.parseHtml('<meta name="twitter:hello" content="world">');
     tags.should.have.property("hello");
   });
