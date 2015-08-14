@@ -18,7 +18,7 @@ TwitterTags.parseHtml = function(html) {
 
   metaTags.each(function(i, element) {
     var attrs = element.attribs;
-    result[attrs.name.replace("twitter:", "")] = attrs.content;
+    result[attrs.name.replace("twitter:", "").toLowerCase()] = attrs.content;
   });
 
   return result;
@@ -29,9 +29,7 @@ TwitterTags.fetch = function(url) {
 
   request(url, function (error, response, data) {
     if (!error && response.statusCode === 200) {
-      var result = TwitterTags.parseHtml(data);
-
-      deferred.resolve(result);
+      deferred.resolve(TwitterTags.parseHtml(data));
     } else {
       deferred.reject({error: error});
     }
