@@ -1,41 +1,48 @@
-"use strict";
+(function() {
+  'use strict';
+  var Q, TwitterTags, cheerio, request;
 
-var request = require("request");
-var cheerio = require("cheerio");
-var Q = require("q");
+  request = require('request');
 
-var TwitterTags = {};
+  cheerio = require('cheerio');
 
-TwitterTags.parseHtml = function(html) {
-  var result = {};
-  var $ = cheerio.load(html);
-  var metaTags = $("meta").filter(function() {
-    if(!this.attribs.name) {
-      return false;
-    }
-    return this.attribs.name.match("twitter:");
-  });
+  Q = require('q');
 
-  metaTags.each(function(i, element) {
-    var attrs = element.attribs;
-    result[attrs.name.replace("twitter:", "").toLowerCase()] = attrs.content;
-  });
+  TwitterTags = {};
 
-  return result;
-};
+  TwitterTags.parseHtml = function(html) {
+    var $, metaTags, result;
+    result = {};
+    $ = cheerio.load(html);
+    metaTags = $('meta').filter(function() {
+      if (!this.attribs.name) {
+        return false;
+      }
+      return this.attribs.name.match('twitter:');
+    });
+    metaTags.each(function(i, element) {
+      var attrs;
+      attrs = element.attribs;
+      return result[attrs.name.replace('twitter:', '').toLowerCase()] = attrs.content;
+    });
+    return result;
+  };
 
-TwitterTags.fetch = function(url) {
-  var deferred = Q.defer();
+  TwitterTags.fetch = function(url) {
+    var deferred;
+    deferred = Q.defer();
+    request(url, function(error, response, data) {
+      if (!error && response.statusCode === 200) {
+        return deferred.resolve(TwitterTags.parseHtml(data));
+      } else {
+        return deferred.reject({
+          error: error
+        });
+      }
+    });
+    return deferred.promise;
+  };
 
-  request(url, function (error, response, data) {
-    if (!error && response.statusCode === 200) {
-      deferred.resolve(TwitterTags.parseHtml(data));
-    } else {
-      deferred.reject({error: error});
-    }
-  });
+  module.exports = TwitterTags;
 
-  return deferred.promise;
-};
-
-module.exports = TwitterTags;
+}).call(this);
