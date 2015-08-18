@@ -21,10 +21,10 @@ TwitterTags.parseHtml = (html) ->
 TwitterTags.fetch = (url) ->
   deferred = Q.defer()
   request url, (error, response, data) ->
-    if not error and response.statusCode is 200
+    if not error and response?.statusCode is 200
       deferred.resolve TwitterTags.parseHtml(data)
     else
-      deferred.reject error: error
+      deferred.reject({error})
 
   deferred.promise
 
