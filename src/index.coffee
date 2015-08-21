@@ -8,7 +8,7 @@ TwitterTags.parseHtml = (html) ->
   result = {}
   $ = cheerio.load(html)
   metaTags = $('meta').filter ->
-    if !@attribs.name
+    if not @attribs.name
       return false
     @attribs.name.match 'twitter:'
 
